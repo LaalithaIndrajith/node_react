@@ -1,5 +1,4 @@
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card.tsx";
-import {Label} from "@/components/ui/label.tsx";
 import {Input} from "@/components/ui/input.tsx";
 import {Button} from "@/components/ui/button.tsx";
 import {Link} from "react-router";
@@ -7,7 +6,11 @@ import {z} from "zod";
 import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
-import {toast} from "@/hooks/use-toast.ts";
+import axios from 'axios';
+import {PopupAlert} from "@/components/common/popup-alert.tsx";
+import AlertType from "@/constants/alert-type.ts";
+import {useState} from "react";
+
 
 const registerFormSchema = z.object({
     email: z.string().email({message: "Please enter a valid email"}),
@@ -25,7 +28,16 @@ const registerFormSchema = z.object({
     }
 })
 
-export  function RegisterPage(){
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+
+export function RegisterPage(){
+    const [alert, setAlert] = useState<{ alertType: AlertType; titleText: string; description: string; isOpen: boolean, navigateTo?:string }>({
+        alertType: AlertType.success,
+        titleText: "",
+        description: "",
+        isOpen: false,
+    });
+
     const form= useForm<z.infer<typeof registerFormSchema>>({
         resolver: zodResolver(registerFormSchema),
         defaultValues: {
@@ -35,8 +47,49 @@ export  function RegisterPage(){
         },
     })
 
-    function onSubmit(values: z.infer<typeof registerFormSchema>) {
+    async function onSubmit(values: z.infer<typeof registerFormSchema>) {
+        console.log(BACKEND_URL);
         console.log(values);
+        try{
+            const userDetails = await axios.post(`${BACKEND_URL}/auth/register`,{
+                    email: values.email,
+                    username: values.email,
+                    password: values.password,
+
+                }, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                }
+            )
+            console.log(`✅ User registered successfully: ${userDetails.data}`);
+            setAlert({
+                alertType: AlertType.success,
+                titleText: "User Registration",
+                description: "User registered successfully",
+                isOpen: true,
+                navigateTo: '/'
+            });
+        }catch (err){
+            if (axios.isAxiosError(err)) {
+                console.error('❌ Error occurred:', err.response?.data.error);
+                setAlert({
+                    alertType: AlertType.warning,
+                    titleText: "User Registration Unsuccessful",
+                    description: err.response?.data.error || "Something went wrong",
+                    isOpen: true,
+                });
+            } else {
+                console.error('❌ Unknown error occurred:', err);
+                setAlert({
+                    alertType: AlertType.warning,
+                    titleText: "User Registration Unsuccessful",
+                    description: "Unknown error occurred. Please try again",
+                    isOpen: true,
+                });
+            }
+        }
+
     }
 
     return (
@@ -115,6 +168,15 @@ export  function RegisterPage(){
                     </Card>
                 </div>
             </div>
+
+            <PopupAlert
+                alertType={alert.alertType}
+                titleText={alert.titleText}
+                description={alert.description}
+                isOpen={alert.isOpen}
+                onClose={() => setAlert({ ...alert, isOpen: false })}
+                navigateTo={alert.navigateTo}
+            />
         </>
     )
 }
