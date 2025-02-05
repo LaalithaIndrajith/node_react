@@ -6,6 +6,7 @@ import compression from "compression";
 import cors from "cors";
 import dotenv from "dotenv";
 import router from "./router";
+import * as process from "node:process";
 
 dotenv.config();
 
@@ -15,6 +16,9 @@ const app = express();
 // Configuring the app to use CORS middleware
 app.use(
     cors({
+        origin: [
+            process.env.FRONTEND_URL || "http://localhost:5173",
+        ],
         credentials: true, // Allow credentials (cookies, etc.) to be sent with requests
     })
 );
