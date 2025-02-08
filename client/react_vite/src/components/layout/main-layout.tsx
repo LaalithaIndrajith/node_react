@@ -23,7 +23,7 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
                             <NavBreadcrumb list={breadcrumbList}/>
                         </div>
                     </header>
-                    <div className="flex justify-center items-center">
+                    <div className="flex p-5">
                         {children}
                     </div>
                 </SidebarInset>

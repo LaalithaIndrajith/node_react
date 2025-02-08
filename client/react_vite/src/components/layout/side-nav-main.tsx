@@ -56,6 +56,14 @@ const data: SideNavBarProps = {
             isActive: true,
             items: [
                 {
+                    title: "New Post",
+                    url: "new-post",
+                },
+                {
+                    title: "All Posts",
+                    url: "all-posts",
+                },
+                {
                     title: "My Posts",
                     url: "my-posts",
                 },

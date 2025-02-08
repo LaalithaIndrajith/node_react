@@ -7,8 +7,10 @@ import {RegisterPage} from "@/pages/register.tsx";
 import NotFoundPage from "@/pages/not-found.tsx";
 import {ProtectedRoute} from "@/components/layout/ProtectedRoute.tsx";
 import {HomePage} from "@/pages/home.tsx";
-import {MyPostsPage} from "@/pages/my-posts.tsx";
+import {MyPostsPage} from "@/pages/posts/my-posts.tsx";
 import {BreadcrumbProvider} from "@/context/BreadcrumbContext.tsx";
+import {AllPostsPage} from "@/pages/posts/all-posts.tsx";
+import {NewPostPage} from "@/pages/posts/new-post.tsx";
 
 const router = createBrowserRouter([
     {
@@ -32,6 +34,16 @@ const router = createBrowserRouter([
                 path: "my-posts",
                 element: <MyPostsPage />,
                 handle: { breadcrumbList: [{ title: "Home", link: "/home" }, { title: "My Posts", link: "/home/my-posts" }]}
+            },
+            {
+                path: "all-posts",
+                element: <AllPostsPage />,
+                handle: { breadcrumbList: [{ title: "Home", link: "/home" }, { title: "All Posts", link: "/home/all-posts" }]}
+            },
+            {
+                path: "new-Post",
+                element: <NewPostPage />,
+                handle: { breadcrumbList: [{ title: "Home", link: "/home" }, { title: "New Post", link: "/home/new-post" }]}
             },
         ],
     },
