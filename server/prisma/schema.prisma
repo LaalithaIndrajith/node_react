@@ -19,6 +19,8 @@ model User {
   username       String
   authentication Authentication
   posts          Post[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
 }
 
 type Authentication {
@@ -32,5 +34,7 @@ model Post {
   title       String
   description String
   authorId    String @db.ObjectId
-  user        User   @relation(fields: [authorId], references: [id])
+  author        User   @relation(fields: [authorId], references: [id])
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
 }
