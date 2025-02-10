@@ -12,8 +12,8 @@ import {PopupAlert} from "@/components/common/popup-alert.tsx";
 import {useState} from "react";
 
 const loginFormSchema = z.object({
-    email: z.string().email({message: "Please enter a valid email"}),
-    password: z.string({ message: 'Password is Required' }),
+    email: z.string().min(1, "Please enter a title").email({message: "Please enter a valid email"}),
+    password: z.string().min(1,"Password is Required"),
 })
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
@@ -47,9 +47,8 @@ export function LoginPage(){
                     }
                 }
             )
-            console.log(`✅ User authenticated successfully: ${JSON.stringify(authentication.data)}`);
-            localStorage.setItem("authToken", authentication.data.authentication.sessionToken);
             const userDetails =   {
+                "authToken": authentication.data.authentication.sessionToken,
                 "username": authentication.data.username,
                 "email": authentication.data.email,
             }
@@ -113,7 +112,7 @@ export function LoginPage(){
                                             name="password"
                                             render={({ field }) => (
                                                 <FormItem>
-                                                    <FormLabel>Confirm Password</FormLabel>
+                                                    <FormLabel>Password</FormLabel>
                                                     <FormControl>
                                                         <Input style={{marginTop:4}} type="password" {...field} />
                                                     </FormControl>

@@ -41,7 +41,7 @@ export function SideNavUser({
     const navigate = useNavigate();
 
     function handleLogout() {
-        localStorage.removeItem("authToken"); // Remove session token
+        localStorage.removeItem("userDetails"); // Remove session token
         navigate("/"); // Redirect to login
     }
 

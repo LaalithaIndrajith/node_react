@@ -8,7 +8,10 @@ type RouteHandle = {
 };
 
 const isAuthenticated = () => {
-    return !!localStorage.getItem("authToken"); // Check if session token exists
+    const userDetailsString = localStorage.getItem("userDetails");
+    const userDetails = userDetailsString ? JSON.parse(userDetailsString) : null;
+
+    return !!userDetails?.authToken; // Check if authToken exists and is truthy
 };
 
 export function ProtectedRoute() {
