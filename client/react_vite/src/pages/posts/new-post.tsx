@@ -10,6 +10,7 @@ import AlertType from "@/constants/alert-type.ts";
 import {PopupAlert} from "@/components/common/popup-alert.tsx";
 import {useState} from "react";
 import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/components/ui/form.tsx";
+import {AuthHelper} from "@/helpers/auth-helper.ts";
 
 const newPostFormSchema = z.object({
     title: z.string().min(1, "Please enter a title"),
@@ -17,7 +18,6 @@ const newPostFormSchema = z.object({
 })
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
-const authenticatedUser = JSON.parse(localStorage.getItem("userDetails") || "{}");
 
 
 export function NewPostPage(){
@@ -36,10 +36,16 @@ export function NewPostPage(){
     })
     async function onSubmit(values: z.infer<typeof newPostFormSchema>) {
         try{
+            const authorId = AuthHelper.getAuthenticatedUserId()
+
+            if (!authorId) {
+                throw new Error("No authenticated user found!");
+            }
+
             const newPost = await axios.post(`${BACKEND_URL}/posts/new`,{
                     title: values.title,
                     description: values.description,
-                    email: authenticatedUser.email
+                    authorId: authorId
 
                 }, {
                     headers: {
