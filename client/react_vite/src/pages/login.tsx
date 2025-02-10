@@ -35,7 +35,6 @@ export function LoginPage(){
     })
 
     async function onSubmit(values: z.infer<typeof loginFormSchema>) {
-        console.log(values);
         try{
             const authentication = await axios.post(`${BACKEND_URL}/auth/login`,{
                     email: values.email,

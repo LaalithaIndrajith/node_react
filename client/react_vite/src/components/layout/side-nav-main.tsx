@@ -17,19 +17,12 @@ import {
 import {Navbar} from "@/components/layout/navbar.tsx";
 import {SideNavUser} from "@/components/layout/side-nav-user.tsx";
 
-type User = {
-    name: string;
-    email: string;
-    avatar: string;
-}
-
 type NavItem = {
     title: string;
     url: string;
 }
 
 type SideNavBarProps = {
-    user:User
     navMain: NavMain[];
 }
 
@@ -40,14 +33,8 @@ type NavMain = {
     isActive?: boolean;
     items: NavItem[];
 }
-const authenticatedUser = JSON.parse(localStorage.getItem("userDetails") || "{}");
 
 const data: SideNavBarProps = {
-    user: {
-        name: authenticatedUser.username,
-        email: authenticatedUser.email,
-        avatar: "/avatars/shadcn.jpg",
-    },
     navMain: [
         {
             title: "Posts",
@@ -97,7 +84,7 @@ export function SideNavMain({ ...props }: React.ComponentProps<typeof Sidebar>) 
                 <Navbar items={data.navMain} />
             </SidebarContent>
             <SidebarFooter>
-                <SideNavUser user={data.user} />
+                <SideNavUser/>
             </SidebarFooter>
             <SidebarRail />
         </Sidebar>

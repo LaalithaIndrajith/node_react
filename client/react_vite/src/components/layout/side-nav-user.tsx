@@ -27,18 +27,30 @@ import {
     useSidebar,
 } from "@/components/ui/sidebar"
 import {useNavigate} from "react-router";
+import {useEffect, useState} from "react";
 
-export function SideNavUser({
-                            user,
-                        }: {
-    user: {
-        name: string
-        email: string
-        avatar: string
-    }
-}) {
+type User = {
+    name: string
+    email: string
+    avatar: string
+}
+
+export function SideNavUser() {
+    const [user, setUser] = useState<User | null>(null);
     const { isMobile } = useSidebar()
     const navigate = useNavigate();
+
+    useEffect(() => {
+        const userDetailsString = localStorage.getItem("userDetails");
+        if (userDetailsString) {
+            const authenticatedUser = JSON.parse(userDetailsString);
+            setUser({
+                name: authenticatedUser.username,
+                email: authenticatedUser.email,
+                avatar: authenticatedUser.avatar || "/avatars/shadcn.jpg",
+            });
+        }
+    }, []);
 
     function handleLogout() {
         localStorage.removeItem("userDetails"); // Remove session token
@@ -50,6 +62,10 @@ export function SideNavUser({
             .split(" ") // Split by space
             .map(word => word.charAt(0).toUpperCase()) // Get first letter and convert to uppercase
             .join(""); // Join initials
+    }
+
+    if (!user) {
+        return null; // Prevent rendering until user data is available
     }
 
     return (
