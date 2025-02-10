@@ -28,6 +28,7 @@ import {
 } from "@/components/ui/sidebar"
 import {useNavigate} from "react-router";
 import {useEffect, useState} from "react";
+import {TextHelper} from "@/helpers/text-helper.ts";
 
 type User = {
     name: string
@@ -53,15 +54,8 @@ export function SideNavUser() {
     }, []);
 
     function handleLogout() {
-        localStorage.removeItem("userDetails"); // Remove session token
+        localStorage.removeItem("userDetails");
         navigate("/"); // Redirect to login
-    }
-
-    function getInitials(name: string): string {
-        return name
-            .split(" ") // Split by space
-            .map(word => word.charAt(0).toUpperCase()) // Get first letter and convert to uppercase
-            .join(""); // Join initials
     }
 
     if (!user) {
@@ -79,7 +73,7 @@ export function SideNavUser() {
                         >
                             <Avatar className="h-8 w-8 rounded-lg">
                                 <AvatarImage src={user.avatar} alt={user.name} />
-                                <AvatarFallback className="rounded-lg">{getInitials(user.name)}</AvatarFallback>
+                                <AvatarFallback className="rounded-lg">{TextHelper.getInitials(user.name)}</AvatarFallback>
                             </Avatar>
                             <div className="grid flex-1 text-left text-sm leading-tight">
                                 <span className="truncate font-semibold">{user.name}</span>
@@ -98,7 +92,7 @@ export function SideNavUser() {
                             <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                                 <Avatar className="h-8 w-8 rounded-lg">
                                     <AvatarImage src={user.avatar} alt={user.name} />
-                                    <AvatarFallback className="rounded-lg">{getInitials(user.name)}</AvatarFallback>
+                                    <AvatarFallback className="rounded-lg">{TextHelper.getInitials(user.name)}</AvatarFallback>
                                 </Avatar>
                                 <div className="grid flex-1 text-left text-sm leading-tight">
                                     <span className="truncate font-semibold">{user.name}</span>

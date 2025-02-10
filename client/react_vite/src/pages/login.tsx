@@ -48,6 +48,7 @@ export function LoginPage(){
             )
             const userDetails =   {
                 "authToken": authentication.data.authentication.sessionToken,
+                "userId": authentication.data.id,
                 "username": authentication.data.username,
                 "email": authentication.data.email,
             }
