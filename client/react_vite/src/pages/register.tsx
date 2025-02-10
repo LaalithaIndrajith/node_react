@@ -14,6 +14,7 @@ import {useState} from "react";
 
 const registerFormSchema = z.object({
     email: z.string().email({message: "Please enter a valid email"}),
+    username: z.string().min(1,{message: "Please enter a username"}),
     password: z.string().min(1, { message: 'Password is Required' }),
     confirmPassword: z
         .string()
@@ -42,6 +43,7 @@ export function RegisterPage(){
         resolver: zodResolver(registerFormSchema),
         defaultValues: {
             email: "",
+            username: "",
             password: "",
             confirmPassword: "",
         },
@@ -53,7 +55,7 @@ export function RegisterPage(){
         try{
             const userDetails = await axios.post(`${BACKEND_URL}/auth/register`,{
                     email: values.email,
-                    username: values.email,
+                    username: values.username,
                     password: values.password,
 
                 }, {
@@ -116,6 +118,21 @@ export function RegisterPage(){
                                                         <FormLabel>Email</FormLabel>
                                                         <FormControl>
                                                             <Input style={{marginTop:4}} placeholder="john@example.com" {...field} />
+                                                        </FormControl>
+                                                        <FormMessage />
+                                                    </FormItem>
+                                                )}
+                                            />
+                                        </div>
+                                        <div className="grid gap-2">
+                                            <FormField
+                                                control={form.control}
+                                                name="username"
+                                                render={({ field }) => (
+                                                    <FormItem>
+                                                        <FormLabel>Username</FormLabel>
+                                                        <FormControl>
+                                                            <Input style={{marginTop:4}} placeholder="John Doe" {...field} />
                                                         </FormControl>
                                                         <FormMessage />
                                                     </FormItem>
