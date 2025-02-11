@@ -1,4 +1,4 @@
-# Blog Web App
+# Meedium - Blog Web App
 
 This is a full-stack blog web application built using **React (Vite) & TypeScript** for the frontend and **Node.js (Express) & Prisma** for the backend. The application allows users to create, edit, and manage blog posts.
 
@@ -54,7 +54,7 @@ For detailed setup instructions, refer to the specific documentation for each pa
 
 - **Node.js** (v18+ recommended)
 - **npm** or **yarn**
-- **PostgreSQL / SQLite** (or any Prisma-supported database)
+- **MongoDB Database** 
 
 ### Setup Instructions
 
