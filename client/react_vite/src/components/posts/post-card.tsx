@@ -4,16 +4,12 @@ import {Avatar, AvatarFallback} from "@radix-ui/react-avatar";
 import {TextHelper} from "@/helpers/text-helper.ts";
 import moment from "moment";
 import {TPostCard} from "@/pages/posts/my-posts.tsx";
-import {AuthHelper} from "@/helpers/auth-helper.ts";
-import {useNavigate} from "react-router";
 
 
 export function PostCard({id, title, description, authorId, author, createdAt, updatedAt}: TPostCard) {
 
-    const navigate = useNavigate();
     const createdDate  = moment(createdAt).format('YYYY-MM-DD HH:mm:ss');
     const lastEdited = moment(updatedAt).fromNow();
-    const authenticatedUserId = AuthHelper.getAuthenticatedUserId();
 
     return (
         <>
@@ -21,9 +17,7 @@ export function PostCard({id, title, description, authorId, author, createdAt, u
                 <CardHeader>
                     <div className="flex justify-between">
                         <CardTitle className={'text-2xl'}>{title}</CardTitle>
-                        {(authenticatedUserId === authorId) && (
-                            <Button className={'ml-2'} onClick={() => navigate(`/home/edit-post/${id}`)}>Edit</Button>
-                        )}
+                        <Button className={'ml-2'}>Edit</Button>
                     </div>
                 </CardHeader>
                 <CardContent>
