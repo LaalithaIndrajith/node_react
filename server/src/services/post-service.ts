@@ -47,5 +47,19 @@ export abstract class PostService {
             }
         })
     }
+
+    public static async getAllPosts() {
+        return prisma.post.findMany({
+            include: {
+                author: { // Corrected to 'author' as per the schema
+                    select: {
+                        id: true,
+                        username: true,
+                        email: true
+                    }
+                }
+            }
+        })
+    }
 }
 
