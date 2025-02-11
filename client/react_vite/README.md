@@ -1,50 +1,103 @@
-# React + TypeScript + Vite
+# React Vite Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Overview
+This is the frontend of the Meedium - Online Blog web application built using React and Vite. The application allows users to create, edit, and view blog posts. It follows a modular component structure and uses various libraries for UI and state management.
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## Project Structure
+```
+react_vite
+├── README.md
+├── components.json
+├── eslint.config.js
+├── index.html
+├── package-lock.json
+├── package.json
+├── postcss.config.js
+├── public
+│   └── vite.svg
+├── src
+│   ├── App.css
+│   ├── App.tsx
+│   ├── assets
+│   │   └── react.svg
+│   ├── components
+│   │   ├── common
+│   │   ├── layout
+│   │   ├── posts
+│   │   └── ui
+│   ├── constants
+│   │   └── alert-type.ts
+│   ├── context
+│   │   └── BreadcrumbContext.tsx
+│   ├── helpers
+│   │   ├── auth-helper.ts
+│   │   └── text-helper.ts
+│   ├── hooks
+│   │   ├── use-mobile.tsx
+│   │   └── use-toast.ts
+│   ├── index.css
+│   ├── lib
+│   │   └── utils.ts
+│   ├── main.tsx
+│   ├── pages
+│   │   ├── home.tsx
+│   │   ├── login.tsx
+│   │   ├── not-found.tsx
+│   │   ├── posts
+│   │   └── register.tsx
+│   └── vite-env.d.ts
+├── tailwind.config.js
+├── tsconfig.app.json
+├── tsconfig.json
+├── tsconfig.node.json
+└── vite.config.ts
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+## Tech Stack
+- **Framework:** React with Vite
+- **Language:** TypeScript
+- **State Management:** React Context API
+- **Styling:** Tailwind CSS
+- **HTTP Client:** Axios
+- **Validation:** Zod
+- **Form Handling:** React Hook Form
+- **UI Components:** shadcn
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+## Installation
+### Prerequisites
+Ensure you have the following installed:
+- Node.js (v18+)
+- npm or yarn
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+### Steps
+1. Clone the repository:
+   ```sh
+   git clone https://github.com/LaalithaIndrajith/node_react.git
+   cd client/react_vite
+   ```
+2. Install dependencies:
+   ```sh
+   npm install
+   ```
+3. Start the development server:
+   ```sh
+   npm run dev
+   ```
+
+## Available Scripts
+- `npm run dev` - Runs the application in development mode.
+- `npm run build` - Builds the application for production.
+- `npm run lint` - Runs ESLint to check for code quality.
+- `npm run preview` - Previews the production build.
+
+## Environment Variables
+Create a `.env` file in the root directory and configure the backend URL:
 ```
+VITE_BACKEND_URL=http://localhost:5000
+```
+
+## Features
+- User authentication (login/register)
+- Create, edit, and delete blog posts
+- Responsive design with Tailwind CSS
+- Toast notifications
