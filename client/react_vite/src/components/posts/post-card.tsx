@@ -37,7 +37,7 @@ export function PostCard({id, title, description, authorId, author, createdAt, u
                             <AvatarFallback className="rounded-lg">{TextHelper.getInitials(author.username)}</AvatarFallback>
                         </Avatar>
                         <div className="grid flex-1 text-left text-sm leading-tight">
-                            <span className="truncate font-semibold">{author.username}</span>
+                            <span className="truncate font-semibold">{author.username} {(authenticatedUserId === authorId) ? '(You)' : ''}</span>
                             <span className="truncate text-xs text-neutral-400">Last modified: {lastEdited}</span>
                             <span className="truncate text-xs text-neutral-400">Created: {createdDate}</span>
                         </div>
