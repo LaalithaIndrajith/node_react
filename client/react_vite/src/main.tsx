@@ -11,6 +11,7 @@ import {MyPostsPage} from "@/pages/posts/my-posts.tsx";
 import {BreadcrumbProvider} from "@/context/BreadcrumbContext.tsx";
 import {AllPostsPage} from "@/pages/posts/all-posts.tsx";
 import {NewPostPage} from "@/pages/posts/new-post.tsx";
+import {EditPostPage} from "@/pages/posts/edit-post.tsx";
 
 const router = createBrowserRouter([
     {
@@ -44,6 +45,11 @@ const router = createBrowserRouter([
                 path: "new-Post",
                 element: <NewPostPage />,
                 handle: { breadcrumbList: [{ title: "Home", link: "/home" }, { title: "New Post", link: "/home/new-post" }]}
+            },
+            {
+                path: "edit-Post/:postId",
+                element: <EditPostPage />,
+                handle: { breadcrumbList: [{ title: "Home", link: "/home" }, { title: "Edit Post", link: "/home/edit-post" }]}
             },
         ],
     },
