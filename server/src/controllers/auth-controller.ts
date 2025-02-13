@@ -67,13 +67,6 @@ export const login = async (req: express.Request, res: express.Response): Promis
                 id: true,
                 email: true,
                 username: true,
-                authentication: {
-                    select: {
-                        password: true,
-                        salt: true,
-                        sessionToken: true,
-                    },
-                },
             }
         })
 
