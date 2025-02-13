@@ -47,10 +47,10 @@ export function LoginPage(){
                 }
             )
             const userDetails =   {
-                "authToken": authentication.data.authentication.sessionToken,
-                "userId": authentication.data.id,
-                "username": authentication.data.username,
-                "email": authentication.data.email,
+                "authToken": authentication.data.token,
+                "userId": authentication.data.user.id,
+                "username": authentication.data.user.username,
+                "email": authentication.data.user.email,
             }
             localStorage.setItem("userDetails", JSON.stringify(userDetails));
             navigate("/home");
