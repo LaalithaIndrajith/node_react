@@ -1,8 +1,12 @@
 import express from "express";
 import { PrismaClient } from '@prisma/client'
 import {authentication, random} from "../helpers/auth-helper";
+import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+import * as process from "node:process";
 
 const prisma = new PrismaClient()
+dotenv.config();
 
 // Register user for the authentication
 export const register = async (req: express.Request, res: express.Response): Promise<void> => {
@@ -78,37 +82,19 @@ export const login = async (req: express.Request, res: express.Response): Promis
             return;
         }
 
-        // Hash the provided password with the salt
-        const expectedHash = authentication(user.authentication.salt, password);
+        // Create JWT
+        const token = jwt.sign(
+            { id: user.id },
+            process.env.SECRET_STR || "default-secret-key-for-jwt-secret",
+            { expiresIn: "2h" }
+        );
 
-        if (user.authentication.password !== expectedHash) {
-            res.status(403).json({ error: "Invalid email or password" });
-            return;
-        }
-
-        // Generate the session token
-        const salt = random();
-        const authenticationToken = authentication(salt,user.id)
-
-        // Update user with new session token
-        await prisma.user.update({
-            where: { email },
-            data: {
-                authentication: {
-                    update: {
-                        sessionToken: authenticationToken,
-                    },
-                },
-            },
+        // res.status(200).json(user);
+        res.status(200).json({
+            status: "success",
+            user,
+            token
         });
-
-        // Sets cookie for authentication.
-        res.cookie("LAALITHA-AUTH", user.authentication.sessionToken, {
-            domain: "localhost",
-            path: "/",
-        });
-
-        res.status(200).json(user);
         return;
     }catch (err){
         console.log(err);
