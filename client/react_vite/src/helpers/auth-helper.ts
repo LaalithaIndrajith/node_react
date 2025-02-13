@@ -5,4 +5,10 @@ export abstract class AuthHelper {
         const userDetails = userDetailsString ? JSON.parse(userDetailsString) : null;
         return userDetails?.userId ?? null;
     };
+
+    public static getAuthToken = (): string | null => {
+        const userDetailsString = localStorage.getItem("userDetails");
+        const userDetails = userDetailsString ? JSON.parse(userDetailsString) : null;
+        return userDetails?.authToken ?? null;
+    }
 }
