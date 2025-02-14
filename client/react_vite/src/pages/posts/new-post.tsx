@@ -36,20 +36,19 @@ export function NewPostPage(){
     })
     async function onSubmit(values: z.infer<typeof newPostFormSchema>) {
         try{
-            const authorId = AuthHelper.getAuthenticatedUserId()
+            const BEARER_TOKEN = AuthHelper.getAuthToken()
 
-            if (!authorId) {
+            if (!BEARER_TOKEN) {
                 throw new Error("No authenticated user found!");
             }
 
             const newPost = await axios.post(`${BACKEND_URL}/posts/new`,{
                     title: values.title,
                     description: values.description,
-                    authorId: authorId
-
                 }, {
                     headers: {
                         'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${BEARER_TOKEN}`
                     }
                 }
             )

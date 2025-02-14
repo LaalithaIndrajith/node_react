@@ -2,6 +2,7 @@ import {PostCard} from "@/components/posts/post-card.tsx";
 import axios from "axios";
 import {useEffect, useState} from "react";
 import {TPostCard} from "@/pages/posts/my-posts.tsx";
+import {AuthHelper} from "@/helpers/auth-helper.ts";
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
@@ -11,7 +12,12 @@ export function AllPostsPage() {
     useEffect(()=>{
         const fetchPosts = async () => {
             try {
-                const response = await axios.get(`${BACKEND_URL}/posts/all`);
+                const BEARER_TOKEN = AuthHelper.getAuthToken()
+                const response = await axios.get(`${BACKEND_URL}/posts/all`, {
+                    headers: {
+                        'Authorization': `Bearer ${BEARER_TOKEN}`
+                    }
+                });
                 setPosts(response.data);
             } catch (error) {
                 console.error("Error fetching posts:", error);

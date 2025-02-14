@@ -40,7 +40,12 @@ export function EditPostPage(){
     useEffect(() => {
         const fetchPost = async () => {
             try {
-                const response = await axios.get(`${BACKEND_URL}/posts/edit/${postId}`);
+                const BEARER_TOKEN = AuthHelper.getAuthToken()
+                const response = await axios.get(`${BACKEND_URL}/posts/edit/${postId}`, {
+                    headers: {
+                        'Authorization': `Bearer ${BEARER_TOKEN}`
+                    }
+                });
                 editPostForm.reset(response.data);
             } catch (error) {
                 console.error("Error fetching post:", error);
@@ -54,10 +59,10 @@ export function EditPostPage(){
 
     async function onSubmit(values: z.infer<typeof editPostFormSchema>) {
         try{
-            const authorId = AuthHelper.getAuthenticatedUserId()
+            const BEARER_TOKEN = AuthHelper.getAuthToken()
 
-            if (!authorId) {
-                throw new Error("No authenticated user found!");
+            if (!BEARER_TOKEN) {
+                throw new Error("Authentication failed");
             }
 
             const editedPost = await axios.put(`${BACKEND_URL}/posts/edit/${postId}`,{
@@ -67,6 +72,7 @@ export function EditPostPage(){
                 }, {
                     headers: {
                         'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${BEARER_TOKEN}`
                     }
                 }
             )
