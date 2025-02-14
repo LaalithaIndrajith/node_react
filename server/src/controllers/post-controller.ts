@@ -76,7 +76,6 @@ export const updatePost = async (req: express.Request, res: express.Response): P
 export const getAllPosts = async (req: express.Request, res: express.Response): Promise<void> => {
     try{
         const allPosts =  await PostService.getAllPosts();
-        console.log(allPosts);
         res.status(200).json(allPosts).end();
         return;
 
