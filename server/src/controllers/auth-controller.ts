@@ -67,11 +67,25 @@ export const login = async (req: express.Request, res: express.Response): Promis
                 id: true,
                 email: true,
                 username: true,
+                authentication: {
+                    select: {
+                        password: true,
+                        salt: true,
+                    },
+                },
             }
         })
 
         if(!user){
             res.sendStatus(400);
+            return;
+        }
+
+        // Hash the provided password with the salt
+        const expectedHash = authentication(user.authentication.salt, password);
+
+        if (user.authentication.password !== expectedHash) {
+            res.status(403).json({ error: "Invalid email or password" });
             return;
         }
 
@@ -82,7 +96,6 @@ export const login = async (req: express.Request, res: express.Response): Promis
             { expiresIn: "2h" }
         );
 
-        // res.status(200).json(user);
         res.status(200).json({
             status: "success",
             user,
@@ -94,6 +107,5 @@ export const login = async (req: express.Request, res: express.Response): Promis
         res.sendStatus(400);
         return;
     }
-
 
 }
