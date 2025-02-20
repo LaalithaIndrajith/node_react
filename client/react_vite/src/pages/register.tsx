@@ -56,8 +56,6 @@ export function RegisterPage(){
     })
 
     async function onSubmit(values: z.infer<typeof registerFormSchema>) {
-        console.log(BACKEND_URL);
-        console.log(values);
         try{
             const userDetails = await axios.post(`${BACKEND_URL}/auth/register`,{
                     email: values.email,

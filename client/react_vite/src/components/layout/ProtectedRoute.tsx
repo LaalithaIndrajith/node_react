@@ -2,16 +2,10 @@ import {Navigate, Outlet, useMatches} from "react-router";
 import {MainLayout} from "@/components/layout/main-layout.tsx";
 import {useBreadcrumb} from "@/context/BreadcrumbContext.tsx";
 import {useEffect} from "react";
+import {AuthHelper} from "@/helpers/auth-helper.ts";
 
 type RouteHandle = {
     breadcrumbList?: { title: string; link: string }[];
-};
-
-const isAuthenticated = () => {
-    const userDetailsString = localStorage.getItem("userDetails");
-    const userDetails = userDetailsString ? JSON.parse(userDetailsString) : null;
-
-    return !!userDetails?.authToken; // Check if authToken exists and is truthy
 };
 
 export function ProtectedRoute() {
@@ -26,7 +20,7 @@ export function ProtectedRoute() {
         setBreadcrumbList(currentBreadcrumbs);
     }, [matches, setBreadcrumbList]);
 
-    return isAuthenticated() ? (
+    return AuthHelper.isAuthenticated() ? (
         <MainLayout>
             <Outlet />
         </MainLayout>

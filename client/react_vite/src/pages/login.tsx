@@ -9,8 +9,7 @@ import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/
 import axios from "axios";
 import AlertType from "@/constants/alert-type.ts";
 import {PopupAlert} from "@/components/common/popup-alert.tsx";
-import {useEffect, useState} from "react";
-import {AuthHelper} from "@/helpers/auth-helper.ts";
+import {useState} from "react";
 
 const loginFormSchema = z.object({
     email: z.string().min(1, "Please enter a title").email({message: "Please enter a valid email"}),
@@ -27,10 +26,6 @@ export function LoginPage(){
         isOpen: false,
     });
     const navigate = useNavigate();
-    useEffect(() => {
-        if (AuthHelper.isAuthenticated())
-            navigate("/home");
-    }, []);
     const loginForm= useForm<z.infer<typeof loginFormSchema>>({
         resolver: zodResolver(loginFormSchema),
         defaultValues: {

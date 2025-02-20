@@ -12,15 +12,16 @@ import {BreadcrumbProvider} from "@/context/BreadcrumbContext.tsx";
 import {AllPostsPage} from "@/pages/posts/all-posts.tsx";
 import {NewPostPage} from "@/pages/posts/new-post.tsx";
 import {EditPostPage} from "@/pages/posts/edit-post.tsx";
+import {PublicRoute} from "@/components/layout/PublicRoute.tsx";
 
 const router = createBrowserRouter([
     {
-        path: "/",
-        element: <LoginPage/>,
-        errorElement:<NotFoundPage/>
-    },{
-        path: "register",
-        element: <RegisterPage/>
+        element: <PublicRoute />, 
+        children: [
+            { path: "/", element: <LoginPage /> },
+            { path: "register", element: <RegisterPage /> },
+        ],
+        errorElement: <NotFoundPage />,
     },
     {
         path: "home",
