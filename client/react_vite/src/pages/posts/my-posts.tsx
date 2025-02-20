@@ -27,10 +27,13 @@ export function MyPostsPage(){
     useEffect(()=>{
         const fetchPosts = async () => {
             try {
-                const authorId = AuthHelper.getAuthenticatedUserId();
-                if (!authorId) throw new Error("Author ID is missing");
+                const BEARER_TOKEN = AuthHelper.getAuthToken()
 
-                const response = await axios.get(`${BACKEND_URL}/posts/${authorId}`);
+                const response = await axios.get(`${BACKEND_URL}/posts`, {
+                    headers: {
+                        'Authorization': `Bearer ${BEARER_TOKEN}`
+                    }
+                });
                 setPosts(response.data);
             } catch (error) {
                 console.error("Error fetching posts:", error);

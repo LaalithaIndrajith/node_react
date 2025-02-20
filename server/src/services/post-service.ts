@@ -24,7 +24,12 @@ export abstract class PostService {
                         email: true
                     }
                 }
-            }
+            },
+            orderBy: [
+                {
+                    createdAt: 'desc',
+                },
+            ],
         })
     }
 
@@ -58,7 +63,12 @@ export abstract class PostService {
                         email: true
                     }
                 }
-            }
+            },
+            orderBy: [
+                {
+                    createdAt: 'desc',
+                },
+            ],
         })
     }
 }

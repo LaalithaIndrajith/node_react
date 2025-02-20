@@ -9,7 +9,8 @@ import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/
 import axios from "axios";
 import AlertType from "@/constants/alert-type.ts";
 import {PopupAlert} from "@/components/common/popup-alert.tsx";
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import {AuthHelper} from "@/helpers/auth-helper.ts";
 
 const loginFormSchema = z.object({
     email: z.string().min(1, "Please enter a title").email({message: "Please enter a valid email"}),
@@ -26,6 +27,10 @@ export function LoginPage(){
         isOpen: false,
     });
     const navigate = useNavigate();
+    useEffect(() => {
+        if (AuthHelper.isAuthenticated())
+            navigate("/home");
+    }, []);
     const loginForm= useForm<z.infer<typeof loginFormSchema>>({
         resolver: zodResolver(loginFormSchema),
         defaultValues: {
@@ -47,10 +52,10 @@ export function LoginPage(){
                 }
             )
             const userDetails =   {
-                "authToken": authentication.data.authentication.sessionToken,
-                "userId": authentication.data.id,
-                "username": authentication.data.username,
-                "email": authentication.data.email,
+                "authToken": authentication.data.token,
+                "userId": authentication.data.user.id,
+                "username": authentication.data.user.username,
+                "email": authentication.data.user.email,
             }
             localStorage.setItem("userDetails", JSON.stringify(userDetails));
             navigate("/home");
