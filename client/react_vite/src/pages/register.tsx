@@ -1,7 +1,7 @@
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card.tsx";
 import {Input} from "@/components/ui/input.tsx";
 import {Button} from "@/components/ui/button.tsx";
-import {Link} from "react-router";
+import {Link, useNavigate} from "react-router";
 import {z} from "zod";
 import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
@@ -9,7 +9,8 @@ import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/
 import axios from 'axios';
 import {PopupAlert} from "@/components/common/popup-alert.tsx";
 import AlertType from "@/constants/alert-type.ts";
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import {AuthHelper} from "@/helpers/auth-helper.ts";
 
 
 const registerFormSchema = z.object({
@@ -38,6 +39,11 @@ export function RegisterPage(){
         description: "",
         isOpen: false,
     });
+    const navigate = useNavigate();
+    useEffect(() => {
+        if (AuthHelper.isAuthenticated())
+            navigate("/home");
+    }, []);
 
     const form= useForm<z.infer<typeof registerFormSchema>>({
         resolver: zodResolver(registerFormSchema),
