@@ -39,7 +39,7 @@ export function NewPostPage(){
             const BEARER_TOKEN = AuthHelper.getAuthToken()
 
             if (!BEARER_TOKEN) {
-                throw new Error("No authenticated user found!");
+                throw new Error("Authentication failed");
             }
 
             const newPost = await axios.post(`${BACKEND_URL}/posts/new`,{
