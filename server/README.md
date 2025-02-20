@@ -64,12 +64,12 @@ This is the backend server for the application, built with Node.js, Express, Typ
    ```sh
    npm start
    ```
+---
+# API Documentation
 
-## API Documentation
+## Authentication Endpoints
 
-### Authentication Endpoints
-
-#### Register User
+### Register User
 - **URL:** `/auth/register`
 - **Method:** `POST`
 - **Request Body:**
@@ -89,7 +89,7 @@ This is the backend server for the application, built with Node.js, Express, Typ
   }
   ```
 
-#### Login User
+### Login User
 - **URL:** `/auth/login`
 - **Method:** `POST`
 - **Request Body:**
@@ -104,21 +104,25 @@ This is the backend server for the application, built with Node.js, Express, Typ
   {
     "id": "userId",
     "email": "user@example.com",
-    "username": "testuser"
+    "username": "testuser",
+    "token": "jwt_token_here"
   }
   ```
 
----
+## Post Endpoints
 
-### Post Endpoints
-
-#### Create a Post
+### Create a Post
 - **URL:** `/posts/new`
 - **Method:** `POST`
+- **Headers:**
+  ```json
+  {
+    "Authorization": "Bearer jwt_token_here"
+  }
+  ```
 - **Request Body:**
   ```json
   {
-    "authorId": "userId",
     "title": "My First Post",
     "description": "This is the content of the post."
   }
@@ -133,9 +137,15 @@ This is the backend server for the application, built with Node.js, Express, Typ
   }
   ```
 
-#### Get All Posts
+### Get All Posts
 - **URL:** `/posts/all`
 - **Method:** `GET`
+- **Headers:**
+  ```json
+  {
+    "Authorization": "Bearer jwt_token_here"
+  }
+  ```
 - **Response:**
   ```json
   [
@@ -152,9 +162,15 @@ This is the backend server for the application, built with Node.js, Express, Typ
   ]
   ```
 
-#### Get Posts by Author ID
-- **URL:** `/posts/:authorId`
+### Get Posts by Author ID
+- **URL:** `/posts`
 - **Method:** `GET`
+- **Headers:**
+  ```json
+  {
+    "Authorization": "Bearer jwt_token_here"
+  }
+  ```
 - **Response:**
   ```json
   [
@@ -166,9 +182,15 @@ This is the backend server for the application, built with Node.js, Express, Typ
   ]
   ```
 
-#### Get Post by Post ID
+### Get Post by Post ID
 - **URL:** `/posts/edit/:postId`
 - **Method:** `GET`
+- **Headers:**
+  ```json
+  {
+    "Authorization": "Bearer jwt_token_here"
+  }
+  ```
 - **Response:**
   ```json
   {
@@ -178,9 +200,15 @@ This is the backend server for the application, built with Node.js, Express, Typ
   }
   ```
 
-#### Update Post
+### Update Post
 - **URL:** `/posts/edit/:postId`
 - **Method:** `PUT`
+- **Headers:**
+  ```json
+  {
+    "Authorization": "Bearer jwt_token_here"
+  }
+  ```
 - **Request Body:**
   ```json
   {
