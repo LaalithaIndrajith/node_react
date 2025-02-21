@@ -8,7 +8,7 @@ export default function NotFoundPage() {
             <div className="w-full space-y-6 text-center">
                 <div className="space-y-3">
                     <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl transition-transform hover:scale-105">404 - Page Not Found</h1>
-                    <p className="text-gray-500">Sorry, we couldn't find the page you're looking for. Please check the URL or navigate back home.</p>
+                    <p className="text-gray-500">Sorry, we couldn't find the page you're looking for. Please check the URL or navigate {(isAuthenticated) ? 'to Home' : 'to Login'}</p>
                 </div>
                 <Link
                     to={'/'}
