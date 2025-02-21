@@ -77,18 +77,18 @@ Ensure you have the following installed:
    ```
 2. Install dependencies:
    ```sh
-   npm install
+   yarn install
    ```
 3. Start the development server:
    ```sh
-   npm run dev
+   yarn run dev
    ```
 
 ## Available Scripts
-- `npm run dev` - Runs the application in development mode.
-- `npm run build` - Builds the application for production.
-- `npm run lint` - Runs ESLint to check for code quality.
-- `npm run preview` - Previews the production build.
+- `yarn dev` - Runs the application in development mode.
+- `yarn build` - Builds the application for production.
+- `yarn lint` - Runs ESLint to check for code quality.
+- `yarn preview` - Previews the production build.
 
 ## Environment Variables
 Create a `.env` file in the root directory and configure the backend URL:

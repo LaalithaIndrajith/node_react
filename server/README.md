@@ -8,7 +8,7 @@ This is the backend server for the application, built with Node.js, Express, Typ
 .
 ├── README.md
 ├── nodemon.json
-├── package-lock.json
+├── yarn.lock
 ├── package.json
 ├── prisma
 │   └── schema.prisma
@@ -45,7 +45,7 @@ This is the backend server for the application, built with Node.js, Express, Typ
 
 2. Install dependencies:
    ```sh
-   npm install
+   yarn install
    ```
 
 3. Create a `.env` file in the root directory and add the following:
@@ -57,12 +57,12 @@ This is the backend server for the application, built with Node.js, Express, Typ
 
 4. Run Prisma migrations:
    ```sh
-   npx prisma generate
+   yarn prisma generate
    ```
 
 5. Start the server:
    ```sh
-   npm start
+   yarn start
    ```
 ---
 # API Documentation
