@@ -11,7 +11,7 @@ This is a full-stack blog web application built using **React (Vite) & TypeScrip
 │       ├── src/   # React components & pages
 │       ├── public/
 │       ├── package.json.
-│       ├── package-lock.json
+│       ├── yarn.lock
 │       ├── postcss.config.js
 │       ├── index.html
 │       ├── tailwind.config.js
@@ -68,13 +68,13 @@ git clone https://github.com/LaalithaIndrajith/node_react.git
 **Frontend**
 ```bash
 cd client/react_vite
-npm install
+yarn install
 ```
 
 **Backend**
 ```bash
 cd server
-npm install
+yarn install
 ```
 
 #### 3️⃣ Configure Environment Variables
@@ -84,12 +84,13 @@ Create a `.env` file in both `client/react_vite/` and `server/` directories and 
 
 **Frontend:**
 ```bash
-npm run dev
+yarn dev
 ```
 
 **Backend:**
 ```bash
-npm run start
+yarn prisma generate
+yarn start
 ```
 
 #### 5️⃣ Open in Browser
@@ -103,12 +104,14 @@ The frontend should be running at **`http://localhost:5173`**, and the backend A
 - Tailwind CSS
 - Axios
 - shadcn
+- ReactRouter
 
 ### Backend
 - Node.js (Express.js)
 - TypeScript
 - Prisma ORM
 - MongoDB
+- JWT - JSON Web Tokens
 
 ### Tools
 - ESLint & Prettier
